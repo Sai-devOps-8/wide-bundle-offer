@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wide Bundle Offer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #e3f2fd;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin: auto;
+            border: 2px solid rgb(196, 129, 174);
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px  rgb(196, 129, 174);
+        }
+        .offer-title {
+            text-align: center;
+            font-size: 22px;
+            color: #e100ff;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .offer-box {
+            border: 2px solid rgb(255, 192, 247);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .offer-box.selected {
+            transform: scale(1.05);
+            background-color: #ffccbc;
+            border-color: #FFFF00;
+        }
+        .most-popular {
+            background-color: #FFA500;
+            color: white;
+            padding: 5px;
+            font-size: 12px;
+            display: inline-block;
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            border-radius: 3px;
+        }
+        .discount {
+            background-color: #0095ff;
+            padding: 3px 6px;
+            font-size: 12px;
+            color: red;
+            margin-left: 5px;
+            border-radius: 3px;
+        }
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .old-price {
+            text-decoration: line-through;
+            color: gray;
+        }
+        .add-to-cart {
+            background-color: rgb(0, 128, 79);
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        select, input[type="radio"] {
+            margin: 5px 0;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="offer-title">YAY! It’s Wide Bundle</div>
+        
+        <div class="offer-box" onclick="selectOffer(this, 10)">
+            <input type="radio" name="offer" value="10" checked> <b>1 Unit</b> <span class="discount">10% Off</span><br>
+            <span class="price">$10.00 USD</span> <span class="old-price">$24.00 USD</span><br>
+            <small>Standard Price</small>
+        </div>
+
+        <div class="offer-box" onclick="selectOffer(this, 18)">
+            <input type="radio" name="offer" value="18"> <b>2 Unit</b> <span class="discount">20% Off</span>
+            <span class="most-popular">MOST POPULAR</span><br>
+            <span class="price">$18.00 USD</span> <span class="old-price">$24.00 USD</span><br>
+            <label>Size:</label> 
+            <select>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>XXL</option>
+                <option>XXXL</option>
+            </select>
+            <label>Colour:</label> 
+            <select>
+                <option>Black</option>
+                <option>White</option>
+                <option>Red</option>
+                <option>Blue</option>
+                <option>Green</option>
+                <option>Yellow</option>
+            </select><br>
+            <label>#2 Size:</label> 
+            <select>
+                <option>S</option>
+                <option>M</option>
+                <option>L</option>
+                <option>XL</option>
+                <option>XXL</option>
+                <option>XXXL</option>
+            </select>
+            <label>Colour:</label> 
+            <select>
+                <option>Black</option>
+                <option>White</option>
+                <option>Red</option>
+                <option>Blue</option>
+                <option>Green</option>
+                <option>Yellow</option>
+            </select>
+        </div>
+
+        <div class="offer-box" onclick="selectOffer(this, 24)">
+            <input type="radio" name="offer" value="24"> <b>3 Unit</b> <span class="discount">30% Off</span><br>
+            <span class="price">$24.00 USD</span> <span class="old-price">$24.00 USD</span>
+        </div>
+
+        <div style="color: red;">Free Delivery Up To 10 Km</div>
+        <div>Total: <b id="total-price">$18.00 USD</b></div>
+        
+        <div class="add-to-cart" onclick="addToCart()">Add to Cart</div>
+    </div>
+
+    <script>
+        function selectOffer(selectedBox, price) {
+            document.getElementById('total-price').innerText = `$${price}.00 USD`;
+            let boxes = document.querySelectorAll('.offer-box');
+            boxes.forEach(box => box.classList.remove('selected'));
+            selectedBox.classList.add('selected');
+            
+            let radios = document.getElementsByName('offer');
+            for (let radio of radios) {
+                if (parseInt(radio.value) === price) {
+                    radio.checked = true;
+                }
+            }
+        }
+        
+        function addToCart() {
+            let selectedPrice = document.querySelector('input[name="offer"]:checked').value;
+            alert(`Item added to cart! Total Price: $${selectedPrice}.00 USD`);
+        }
+    </script>
+</body>
+</html>
